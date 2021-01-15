@@ -1,4 +1,4 @@
-package com.zup.orange.loteca.model;
+package com.zup.orange.loteca.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,6 +36,7 @@ public class Bet {
         return numbers;
     }
 
+    @JsonIgnore
     public User getPlayer() {
         return user;
     }

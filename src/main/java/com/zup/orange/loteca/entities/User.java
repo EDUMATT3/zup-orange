@@ -1,4 +1,4 @@
-package com.zup.orange.loteca.model;
+package com.zup.orange.loteca.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,7 +23,7 @@ public class User {
     private String email;
 
     @JsonIgnore
-    @OneToMany(targetEntity = Bet.class,cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "id_player")
     private List<Bet> betList;
 
