@@ -1,13 +1,14 @@
-package com.zup.orange.loteca.service;
+package com.zup.orange.loteca.services;
 
-import com.zup.orange.loteca.model.Bet;
-import com.zup.orange.loteca.model.User;
-import com.zup.orange.loteca.repository.BetRepository;
-import com.zup.orange.loteca.repository.UserRepository;
+import com.zup.orange.loteca.entities.Bet;
+import com.zup.orange.loteca.entities.User;
+import com.zup.orange.loteca.repositories.BetRepository;
 import com.zup.orange.loteca.util.Lotto;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class BetService {
@@ -17,7 +18,6 @@ public class BetService {
         this.betRepository = betRepository;
     }
 
-
     public Bet saveNewBet(User user){
         String betNumbers = generaValidNumbers(user);
         return betRepository.save(new Bet(betNumbers, user));
@@ -26,11 +26,11 @@ public class BetService {
     private String generaValidNumbers(User user){
         String betNumbers = Lotto.randomBet();
 
-        Bet betSaved = betRepository.getBetByUserAndNumbers(user, betNumbers);
+        Optional<Bet> betSaved = betRepository.findOne(Example.of(new Bet(betNumbers, user)));
 
-        while (!Objects.isNull(betSaved)) {
+        while (betSaved.isPresent()) {
             betNumbers = Lotto.randomBet();
-            betSaved = betRepository.getBetByUserAndNumbers(user, betNumbers);
+            betSaved = betRepository.findOne(Example.of(new Bet(betNumbers, user)));
         }
 
         return betNumbers;
