@@ -4,19 +4,16 @@ import com.zup.orange.loteca.entities.Bet;
 import com.zup.orange.loteca.entities.User;
 import com.zup.orange.loteca.repositories.BetRepository;
 import com.zup.orange.loteca.util.Lotto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class BetService {
-    private BetRepository betRepository;
 
-    public BetService(BetRepository betRepository) {
-        this.betRepository = betRepository;
-    }
+    @Autowired
+    private BetRepository betRepository;
 
     public Bet saveNewBet(User user){
         String betNumbers = generaValidNumbers(user);

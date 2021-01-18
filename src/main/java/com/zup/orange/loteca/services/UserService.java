@@ -4,6 +4,7 @@ import com.zup.orange.loteca.exceptions.UserNotFoundException;
 import com.zup.orange.loteca.entities.Bet;
 import com.zup.orange.loteca.entities.User;
 import com.zup.orange.loteca.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public User getOrCreateUser(User reqUser){
         Optional<User> user = userRepository.findOne(Example.of(reqUser));
@@ -34,5 +32,4 @@ public class UserService {
 
         return user.getBetList();
     }
-
 }

@@ -1,6 +1,9 @@
 package com.zup.orange.loteca.exceptions;
+import lombok.Getter;
+
 import java.time.ZonedDateTime;
 
+@Getter
 public class ApiException {
     ZonedDateTime timestamp;
     int status;
@@ -14,19 +17,5 @@ public class ApiException {
         this.error = error;
         this.message = message;
         this.path = path;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPath() { return path; }
-
-    public int getStatus() { return status;}
-
-    public String getError() { return error; }
-
-    public ZonedDateTime getTimestamp() {
-        return timestamp;
     }
 }
